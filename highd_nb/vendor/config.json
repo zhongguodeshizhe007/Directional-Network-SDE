@@ -1,0 +1,20 @@
+{
+  "cell_length_m": 50.0,
+  "step_s": 1.0,
+  "context_window_s": 5.0,
+  "boundary_margin_m": 20.0,
+  "roi_overrides": {},
+  "min_pair_exposure_s": 0.2,
+  "min_pair_coverage": 0.5,
+  "min_distinct_vehicles_cv": 2,
+  "min_speed_for_cv_mps": 1.0,
+  "gap_min_m": 0.001,
+  "negative_speed_tolerance_mps": 0.5,
+  "risk_time_scale_s": 1.0,
+  "conflict_thresholds_s": [1.5, 2.0, 3.0, 4.0],
+  "min_event_duration_s": 0.2,
+  "forecast_horizons_s": [1.0, 3.0, 5.0, 10.0],
+  "diagnostic_lags_s": [1.0, 2.0, 5.0, 10.0],
+  "write_panel_csv": true,
+  "hash_inputs": true
+}

@@ -1,0 +1,190 @@
+{
+  "common_roi_m": 300.0,
+  "scales_m": [
+    50,
+    75,
+    100
+  ],
+  "base_data": {
+    "cell_length_m": 50.0,
+    "step_s": 1.0,
+    "context_window_s": 5.0,
+    "boundary_margin_m": 20.0,
+    "roi_overrides": {},
+    "min_pair_exposure_s": 0.2,
+    "min_pair_coverage": 0.5,
+    "min_distinct_vehicles_cv": 2,
+    "min_speed_for_cv_mps": 1.0,
+    "gap_min_m": 0.001,
+    "negative_speed_tolerance_mps": 0.5,
+    "risk_time_scale_s": 1.0,
+    "conflict_thresholds_s": [
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      4.0
+    ],
+    "min_event_duration_s": 0.2,
+    "forecast_horizons_s": [
+      1.0,
+      3.0,
+      5.0,
+      10.0
+    ],
+    "diagnostic_lags_s": [
+      1.0,
+      2.0,
+      5.0,
+      10.0
+    ],
+    "write_panel_csv": false,
+    "hash_inputs": true,
+    "risk_metric": "inv_ttc",
+    "psd_braking_mps2": 3.924,
+    "pair_sample_hz": 5.0,
+    "pair_sample_max_rows": 100000,
+    "export_paper_arrays": true
+  },
+  "gates": {
+    "min_training_observations": 5000,
+    "min_positive_training_observations": 200,
+    "min_observed_fraction": 0.3,
+    "min_location_observed_fraction": 0.2,
+    "max_p95_missing_gap_s": 45.0,
+    "masked_min_consecutive_fraction": 0.35,
+    "masked_min_neighbor_complete_given_target": 0.5
+  },
+  "model": {
+    "hidden": 32,
+    "drift_limit": 2.0,
+    "sigma_min": 0.01,
+    "sigma_max": 1.0,
+    "observation_sd": 0.1,
+    "max_covariate_carry_s": 10.0,
+    "z_clip_standard_deviations": 8.0,
+    "use_edges": true
+  },
+  "training": {
+    "seeds": [
+      2026,
+      2027,
+      2028
+    ],
+    "epochs": 80,
+    "patience": 12,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "grad_clip": 5.0,
+    "sequence_length": 32,
+    "sequence_stride": 32,
+    "batch_size": 8,
+    "burn_in_steps": 4,
+    "validation_draws": 32,
+    "validation_origin_stride": 20,
+    "validation_max_origins_per_graph": 50,
+    "min_valid_targets_batch": 1,
+    "threads": 1
+  },
+  "evaluation": {
+    "horizons_s": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "particles": 128,
+    "origin_stride": 5,
+    "max_origins_per_graph": null,
+    "history_steps": 32,
+    "forecast_covariates": "freeze_at_anchor",
+    "bootstrap_recordings": 500
+  },
+  "symbolic": {
+    "max_rows_per_component": 20000,
+    "rows_per_graph": 1000,
+    "ridge": 1e-06,
+    "thresholds": [
+      0.0,
+      0.005,
+      0.01,
+      0.03,
+      0.1,
+      0.3
+    ],
+    "validation_relative_tolerance": 0.05,
+    "recording_bootstraps": 30,
+    "rollout_relative_tolerance": 0.2
+  },
+  "preflight": {
+    "require_complete_track_metadata": true,
+    "chunksize": 250000,
+    "allow_partial_recordings": false
+  },
+  "paper": {
+    "models": [
+      "ridge",
+      "xgboost",
+      "lstm",
+      "cnn",
+      "convlstm",
+      "st_transformer"
+    ],
+    "history_steps": 10,
+    "epochs": 40,
+    "patience": 8,
+    "hidden": 32,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "seed": 2026,
+    "train_origin_stride": 2,
+    "test_origin_stride": 1,
+    "max_train_origins_per_graph": 500,
+    "max_test_origins_per_graph": null,
+    "particles": 128,
+    "bootstrap_recordings": 500,
+    "event_thresholds_s": [
+      1.5,
+      2.0,
+      2.5
+    ],
+    "event_support": "complete_future",
+    "event_min_train_positives": 20,
+    "event_min_validation_positives": 5,
+    "alarm_max_fpr": 0.05,
+    "context_backend": "svgp",
+    "context_epochs": 60,
+    "context_max_train_rows": 100000,
+    "context_min_rows": 200,
+    "context_beta": 5.0,
+    "context_inducing": 128,
+    "context_intensities": [
+      1,
+      10,
+      100,
+      1000
+    ],
+    "primary_horizon_s": 5,
+    "primary_ttc_s": 1.5,
+    "context_batch_size": 1024,
+    "event_hazard_enabled": true,
+    "event_hazard_epochs": 60,
+    "event_hazard_batch_size": 512,
+    "event_hazard_learning_rate": 0.001,
+    "event_hazard_hidden": 24,
+    "event_hazard_l2": 0.0001,
+    "event_hazard_exclude_active": true
+  },
+  "study": {
+    "topic": "Interpretable stochastic network dynamics for freeway conflict-risk propagation and probabilistic early warning",
+    "primary_risk_metric": "inv_ttc",
+    "primary_horizon_s": 5,
+    "primary_ttc_s": 1.5,
+    "continuous_primary_score": "crps",
+    "event_primary_score": "brier",
+    "risk_scope": "same-lane following pairs with longitudinal and adjacent-lane traffic context",
+    "propagation_interpretation": "model-conditional directional interaction; not a causal effect",
+    "context_role": "separate contextual-extremeness diagnostic, not a future-event CDF",
+    "empirical_claim_status": "requires local held-out highD results"
+  }
+}
