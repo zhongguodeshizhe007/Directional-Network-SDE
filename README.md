@@ -1,4 +1,4 @@
-# NetworkSDE: Symbolic Dynamics Discovery and Coherent Probabilistic Early Warning of Freeway Conflict Risk Propagation
+# Symbolic Dynamics Discovery and Coherent Probabilistic Early Warning of Freeway Conflict Risk Propagation
 
 Official code repository for the paper:
 > **From Black-Box Networks to Explicit Governing Laws: Symbolic Dynamics Discovery and Coherent Probabilistic Early Warning of Freeway Conflict Risk Propagation**  
